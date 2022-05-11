@@ -1,0 +1,145 @@
+% Environments
+\newenvironment{codealign}{\footnotesize\csname align*\endcsname}{\csname endalign*\endcsname}
+
+% Colors
+\definecolor{colpol}{rgb}{0.6,0.6,0.7}
+\definecolor{colprd}{rgb}{0.5,0.0,0.5}
+\definecolor{colcon}{rgb}{0.0,0.5,0.5}
+\definecolor{meta}{rgb}{0.2,0.2,0.2}
+
+\newcommand{\colpol}[1]{\ensuremath{\textcolor{colpol}{#1}}}
+\newcommand{\colprd}[1]{\ensuremath{\textcolor{colprd}{#1}}}
+\newcommand{\colcon}[1]{\ensuremath{\textcolor{colcon}{#1}}}
+\newcommand{\colmeta}[1]{\ensuremath{\textcolor{meta}{#1}}}
+
+% Formalization-Commands
+\newcommand{\type}{\ensuremath{\mathbf{type}}}
+\newcommand{\where}{\ensuremath{\mathbf{where}}}
+\newcommand{\with}{\ensuremath{\mathbf{with}}}
+\newcommand{\define}{\ensuremath{\mathbf{def}}}
+\newcommand{\match}{\ensuremath{\mathbf{match}}}
+\newcommand{\Done}{\ensuremath{\mathbf{Done}}}
+\newcommand{\None}{\ensuremath{\mathbf{None}}}
+\newcommand{\Void}{\ensuremath{\mathsf{Void}}}
+\newcommand{\capab}{\ensuremath{\mathbf{cap}}}
+
+\newcommand*{\flip}[1]{\hat{#1}}
+
+\newcommand{\wrap}[2][]{\,\overset{\textit{\tiny#2}}{\colon}#1\,}
+\newcommand{\prd}{
+  \wrap{\raisebox{0pt}{\colprd{\rule{0pt}{3pt}\smash{\mathfrak{l}}}}}
+}
+\newcommand{\prdcon}{
+  \wrap{\raisebox{0pt}{\ensuremath{\rule{0pt}{3pt}\smash{\colpol{o}}}}}
+}
+%\newcommand{\conprd}{
+%  \wrap{\raisebox{0pt}{\ensuremath{\rule{0pt}{3pt}\smash{\flip{\colpol{o}}}}}}
+%}
+\newcommand{\con}{
+  \wrap{\rule{0pt}{1pt}\colcon{\mathfrak{r}}}
+}
+
+\newcommand{\pol}{\colpol{o}}
+\newcommand{\polprd}{\colprd{\mathfrak{l}}}
+\newcommand{\polcon}{\colcon{\mathfrak{r}}}
+
+\newcommand{\mkCmd}{\mathrel{\gg}}
+
+\newcommand{\cmd}{\ensuremath{\mathsf{cmd}}}
+
+
+\newcommand{\typetm}[4]{
+  \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{\prdcon}\ #4}
+}
+%\newcommand{\typetmflip}[4]{
+%  \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{\conprd}\ #4}
+%}
+\newcommand{\typetmprd}[4]{
+  \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{\prd}\ #4}
+}
+\newcommand{\typetmcon}[4]{
+  \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{\con}\ #4}
+}
+\newcommand{\typeblk}[4]{
+  \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{:}\ #4}
+}
+\newcommand{\typehndlr}[2]{
+  \ensuremath{\colmeta{\vdash}\ #1\ \colmeta{:}\ #2}
+}
+\newcommand{\typecmd}[4]{
+  \ensuremath{#1\ \colmeta{\vdash}\ #3\ \colmeta{:}\ #4\ \colmeta{\dashv}\ #2}
+}
+\newcommand{\typewf}[1]{
+  \ensuremath{\colmeta{\vdash}\ #1\ \colmeta{\text{Ok}}}
+}
+
+\newcommand{\reducesto}{\ensuremath{\triangleright}}
+\newcommand{\reducestoinv}{\ensuremath{\triangleleft}}
+
+\newcommand{\muprdabs}[3]{\ensuremath{\mu(#1 \con #2).#3}}
+\newcommand{\muconabs}[3]{\ensuremath{\mu(#1 \prd #2).#3}}
+\newcommand{\muqabs}[3]{\ensuremath{\mu(#1 \overset{o}{:} #2).#3}}
+\newcommand{\muqabsinv}[3]{\ensuremath{\mu(#1 \overset{\flip{o}}{:} #2).#3}}
+
+% Programming-Commands
+\newcommand{\Emptytype}{\colprd{\textsc{Empty}}}
+\newcommand{\castT}{\colprd{\texttt{cast}}}
+
+\newcommand{\Unittype}{\colprd{\textsc{Unit}}}
+\newcommand{\Unit}{\colprd{\text{Unit}}}
+\newcommand{\saveModulo}{\colcon{\text{saveModulo}}}
+\newcommand{\chosen}{\colcon{\text{chosen}}}
+
+\newcommand{\Bool}{\colprd{\textsc{Bool}}}
+\newcommand{\False}{\colprd{\text{False}}}
+\newcommand{\True}{\colprd{\text{True}}}
+\newcommand{\ifT}{\colprd{\texttt{if}}}
+
+\newcommand{\Nat}{\colprd{\mathbb{N}}}
+\newcommand{\Zero}{\colprd{\text{Zero}}}
+\newcommand{\Succ}{\colprd{\text{Succ}}}
+\newcommand{\timestwo}{\colprd{\texttt{times2}}}
+\newcommand{\ifzeroErrT}{\colprd{\texttt{ifzeroErr}}}
+\newcommand{\modulo}{\colprd{\reflectbox{\texttt{modulo}}}}
+\newcommand{\choice}{\colprd{\texttt{choice}}}
+\newcommand{\stopNat}{\colcon{\text{stop}}}
+
+\newcommand{\ListNat}{\colprd{\textsc{List}\mathbb{N}}}
+\newcommand{\Nil}{\colprd{\text{Nil}}}
+\newcommand{\Cons}{\colprd{\text{Cons}}}
+\newcommand{\append}{\colprd{\texttt{append}}}
+\newcommand{\stopListNat}{\colcon{\text{stop}}}
+
+\newcommand{\StreamNat}{\colcon{\textsc{Stream}\mathbb{N}}}
+\newcommand{\Head}{\colcon{\text{Head}}}
+\newcommand{\Tail}{\colcon{\text{Tail}}}
+\newcommand{\dupltails}{\colcon{\texttt{dupltails}}}
+\newcommand{\asc}{\colprd{\text{asc}}}
+
+\newcommand{\A}{\textsc{A}}
+\newcommand{\B}{\textsc{B}}
+\newcommand{\parr}{\rotatebox[origin=c]{180}{\&}}
+
+\newcommand{\Plus}{\colprd{\oplus}}
+\newcommand{\Inl}{\colprd{\text{Inl}}}
+\newcommand{\Inr}{\colprd{\text{Inr}}}
+\newcommand{\castplus}{\colprd{\texttt{cast}_{\oplus}2_{\parr}}}
+\newcommand{\case}{\colcon{\text{case}}}
+
+\newcommand{\Par}{\colcon{\parr}}
+\newcommand{\Copair}{\colcon{\text{Pair}}}
+\newcommand{\castpar}{\colcon{\texttt{cast}_{\parr}2_{\oplus}}}
+\newcommand{\cocasel}{\colprd{\text{cocasel}}}
+\newcommand{\cocaser}{\colprd{\text{cocaser}}}
+
+\newcommand{\Times}{\colprd{\otimes}}
+\newcommand{\Pair}{\colprd{\text{Pair}}}
+\newcommand{\casttensor}{\colprd{\texttt{cast}_{\otimes}2_{\&}}}
+\newcommand{\casel}{\colcon{\text{casel}}}
+\newcommand{\caser}{\colcon{\text{caser}}}
+
+\newcommand{\With}{\colcon{\&}}
+\newcommand{\Coinl}{\colcon{\text{Inl}}}
+\newcommand{\Coinr}{\colcon{\text{Inr}}}
+\newcommand{\castwith}{\colcon{\texttt{cast}_{\&}2_{\otimes}}}
+\newcommand{\cocase}{\colprd{\text{cocase}}}

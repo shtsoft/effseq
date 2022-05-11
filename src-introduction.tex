@@ -1,0 +1,838 @@
+This is a stub ...
+
+\begin{align*}
+  \text{id}^{\pol}
+  &:=
+  (x^{\pol},k^{\pol}) \Rightarrow x^{\pol}
+\end{align*}
+
+\subsection{Example 1}
+
+\begin{codealign}
+  % Nat datatype
+  &
+    \polprd\ \type\ \Nat\ \where
+  \\[-4pt]
+  &\quad
+    \Zero
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+  \\
+  % timestwo function
+  &
+    \define\
+    \Nat > \timestwo
+    \prd
+    \Nat
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Zero
+    \Rightarrow
+    \Zero
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+    \Rightarrow
+    \Succ(\Succ(n > \timestwo))
+  \\
+  % stop destructor
+  &
+    \define\
+    \stopNat()[\Void, \Void]
+    \con
+    \Nat
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Zero
+    \Rightarrow
+    \Done
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+    \Rightarrow
+    \Done
+\end{codealign}
+
+\begin{codealign}
+  % StreamNat codatatype
+  &
+    \polcon\ \type\ \StreamNat\ \where
+  \\[-4pt]
+  &\quad
+    \Head(k \con \Nat)
+  \\[-4pt]
+  &\quad
+    \Tail(k \con \StreamNat)
+  \\
+  % dupltails function
+  &
+    \define\
+    \StreamNat < \dupltails
+    \con
+    \StreamNat
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Head(k \con \Nat)
+    \Rightarrow
+    \Head(k)
+  \\[-4pt]
+  &\quad
+    \Tail(k \con \StreamNat)
+    \Rightarrow
+    \Tail(\Tail(k < \dupltails))
+  \\
+  % asc destructor
+  &
+    \define\
+    \asc
+    (n \prd \Nat)
+    [\Nat \times (\Nat \to^{\polprd} \Nat), \StreamNat \times (\StreamNat \to^{\polcon} \StreamNat)]
+    \prd
+    \StreamNat
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Head(k \con \Nat)
+    \Rightarrow
+    \big( \_ \Rightarrow n \big) \mkCmd_{\Nat} k
+  \\[-4pt]
+  &\quad
+    \Tail(k \con \StreamNat)
+    \Rightarrow
+    \asc(\Succ(n))[\text{id}^{\polprd}, \text{id}^{\polcon}]
+    \mkCmd_{\StreamNat}
+    \big( \_ \Rightarrow k \big)
+\end{codealign}
+
+\begin{minipage}{0.4\textwidth}
+  \begin{align*}
+    \phantom{\reducesto_{\polprd}}
+    &
+    \Succ(\Zero) > \timestwo
+    \\
+    \reducesto_{\polprd}\
+    &
+    \Succ(\Succ(\Zero > \timestwo))
+    \\
+    \reducesto_{\polprd}\
+    &
+    \Succ(\Succ(\Zero))
+  \end{align*}
+\end{minipage}
+\begin{minipage}{0.5\textwidth}
+  \begin{align*}
+    \phantom{\reducesto_{\polcon}}
+    &
+    \Tail(\Head(\stopNat[\None, \None])) < \dupltails
+    \\
+    \reducesto_{\polcon}\
+    &
+    \Tail(\Tail(\Head(\stopNat[\None, \None]) < \dupltails))
+    \\
+    \reducesto_{\polcon}\
+    &
+    \Tail(\Tail(\Head(\stopNat[\None, \None])))
+  \end{align*}
+\end{minipage}
+
+\begin{align*}
+  \asc(\Succ(\Zero) > \timestwo)[\text{id}^{\polprd}, \text{id}^{\polcon}]
+  \reducesto_{\polprd}^{\ast}
+  \asc(\Succ(\Succ(\Zero))[\text{id}^{\polprd}, \text{id}^{\polcon}]
+\end{align*}
+
+\begin{align*}
+  \phantom{\reducesto_{\cmd}}
+  &
+  \asc(\Succ(\Zero) > \timestwo)[\text{id}^{\polprd}, \text{id}^{\polcon}]
+  \mkCmd_{\StreamNat}
+  (\Tail(\Head(\stopNat[\None, \None])) < \dupltails)
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  \asc(\Succ(\Succ(\Zero))[\text{id}^{\polprd}, \text{id}^{\polcon}]
+  \mkCmd_{\StreamNat}
+  \Tail(\Tail(\Head(\stopNat[\None, \None])))
+  \\
+  \reducesto_{\cmd}\
+  &
+  \asc(\Succ(\Succ(\Succ(\Zero)))[\text{id}^{\polprd}, \text{id}^{\polcon}]
+  \mkCmd_{\StreamNat}
+  \Tail(\Head(\stopNat[\None, \None]))
+  \\
+  \reducesto_{\cmd}\
+  &
+  \asc(\Succ(\Succ(\Succ(\Succ(\Zero))))[\text{id}^{\polprd}, \text{id}^{\polcon}]
+  \mkCmd_{\StreamNat}
+  \Head(\stopNat[\None, \None])
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Succ(\Succ(\Succ(\Succ(\Zero)))
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Done
+\end{align*}
+
+\subsection{Example 2}
+
+\begin{codealign}
+  % A + B datatype
+  &
+    \polprd\ \type\ \A\,\Plus\,\B\ \where
+  \\[-4pt]
+  &\quad
+    \Inl(a \prd \A)
+  \\[-4pt]
+  &\quad
+    \Inr(b \prd \B)
+  \\
+  % castplus function
+  &
+    \define\
+    \A\,\Plus\,\B > \castplus
+    \prd
+    \A\,\Par\,\B
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Inl(a \prd \A)
+    \Rightarrow
+    \cocasel(a)[\text{id}^{\polcon}]
+    \\[-4pt]
+  &\quad
+    \Inr(b \prd \B)
+    \Rightarrow
+    \cocaser(b)[\text{id}^{\polcon}]
+  \\
+  % case destructor
+  &
+    \define\
+    \case
+    (k_{a} \con \A,k_{b} \con \B)
+    [\A \times (\A \to^{\polprd} \A), \B \times (\B \to^{\polprd} \B)]
+    \con
+    \A\,\Plus\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Inl(a \prd \A)
+    \Rightarrow
+    \big( \_ \Rightarrow a \big) \mkCmd_{\A} k_{a}
+    \\[-4pt]
+  &\quad
+    \Inr(b \prd \B)
+    \Rightarrow
+    \big( \_ \Rightarrow b \big) \mkCmd_{\B} k_{b}
+\end{codealign}
+
+\begin{codealign}
+  % A &' B codatatype
+  &
+    \polcon\ \type\ \A\,\Par\,\B\ \where
+  \\[-4pt]
+  &\quad
+    \Copair(k_{a} \con \A,k_{b} \con \B)
+  \\
+  % castpar function
+  &
+    \define\
+    \A\,\Par\,\B\ < \castpar
+    \con
+    \A\,\Plus\,\B
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Copair(k_{a} \con \A,k_{b} \con \B)
+    \Rightarrow
+    \case(k_{a},k_{b})[\text{id}^{\polprd}, \text{id}^{\polprd}]
+  \\
+  % cocasel destructor
+  &
+    \define\
+    \cocasel(a \prd \A)[\A \times (\A \to^{\polcon} \A)]
+    \prd
+    \A\,\Par\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Copair(k_{a} \con \A,k_{b} \con \B)
+    \Rightarrow
+    a \mkCmd_{\A} \big( \_ \Rightarrow k_{a} \big)
+  \\
+  % cocaser destructor
+  &
+    \define\
+    \cocaser(b \prd \B)[\B \times (\B \to^{\polcon} \B)]
+    \prd
+    \A\,\Par\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Copair(k_{a} \con \A,k_{b} \con \B)
+    \Rightarrow
+    b \mkCmd_{\B} \big( \_ \Rightarrow k_{b} \big)
+\end{codealign}
+
+\begin{codealign}
+  % A x B datatype
+  &
+    \polprd\ \type\ \A\,\Times\,\B\ \where
+  \\[-4pt]
+  &\quad
+    \Pair(a \prd \A,b \prd \B)
+  \\
+  % casttensor function
+  &
+    \define\
+    \A\,\Times\,\B > \casttensor
+    \prd
+    \A\,\With\,\B
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Pair(a \prd \A,b \prd \B)
+    \Rightarrow
+    \cocase(a,b)[\text{id}^{\polcon}, \text{id}^{\polcon}]
+  \\
+  % casel destructor
+  &
+    \define\
+    \casel(k \con \A)[\A \times (\A \to^{\polprd} \A)]
+    \con \A\,\Times\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Pair(a \prd \A,b \prd \B)
+    \Rightarrow
+    \big( \_ \Rightarrow a \big) \mkCmd_{\A} k
+  \\
+  % caser destructor
+  &
+    \define\
+    \caser(k \con \B)[\B \times (\B \to^{\polprd} \B)]
+    \con
+    \A\,\Times\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Pair(a \prd \A,b \prd \B)
+    \Rightarrow
+    \big( \_ \Rightarrow b \big) \mkCmd_{\B} k
+\end{codealign}
+
+\begin{codealign}
+  % A & B codatatype
+  &
+    \polcon\ \type\ \A\,\With\,\B\ \where
+  \\[-4pt]
+  &\quad
+    \Coinl(k \con \A)
+  \\[-4pt]
+  &\quad
+    \Coinr(k \con \B)
+  \\
+  % castwith function
+  &
+    \define\
+    \A\,\With\,\B\ < \castwith
+    \con \A\,\Times\,\B
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Coinl(k \con \A)
+    \Rightarrow
+    \casel(k)[\text{id}^{\polprd}]
+  \\[-4pt]
+  &\quad
+    \Coinr(k \con \B)
+    \Rightarrow
+    \caser(k)[\text{id}^{\polprd}]
+  \\
+  % cocase destructor
+  &
+    \define\
+    \cocase
+    (a \prd \A,b \prd \B)
+    [\A \times (\A \to^{\polcon} \A), \B \times (\B \to^{\polcon} \B)]
+    \prd
+    \A\,\With\,\B
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Coinl(k \con \A)
+    \Rightarrow
+    a \mkCmd_{\A} \big( \_ \Rightarrow k \big)
+  \\[-4pt]
+  &\quad
+    \Coinr(k \con \B)
+    \Rightarrow
+    b \mkCmd_{\B} \big( \_ \Rightarrow k \big)
+\end{codealign}
+
+\subsection{Example 3}
+
+\begin{codealign}
+  % Empty datatype
+  &
+    \polprd\ \type\ \Emptytype\ \where
+  \\[-4pt]
+  % cast function
+  &
+    \define\
+    \Emptytype > \castT\langle T \rangle[k : \Unittype \to^{\polprd} \Emptytype]
+    \prd
+    T
+    \coloneq \match_{1}
+\end{codealign}
+
+\begin{codealign}
+  % Unit datatype
+  &
+    \polprd\ \type\ \Unittype\ \where
+  \\[-4pt]
+  &\quad
+    \Unit
+\end{codealign}
+
+\begin{codealign}
+  % Bool datatype
+  &
+    \polprd\ \type\ \Bool\ \where
+  \\[-4pt]
+  &\quad
+    \True
+  \\[-4pt]
+  &\quad
+    \False
+  \\
+  % ifT function
+  &
+    \define\
+    \Bool > \ifT\langle T \rangle (t_{1} \prd T, t_{2} \prd T)
+    \prd
+    T
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \True
+    \Rightarrow
+    t_{1}
+  \\[-4pt]
+  &\quad
+    \False
+    \Rightarrow
+    t_{2}
+\end{codealign}
+
+\begin{codealign}
+  % Nat datatype
+  &
+    \polprd\ \type\ \Nat\ \where
+  \\[-4pt]
+  &\quad
+    \Zero
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+  \\
+  % ifzeroErrT function
+  &
+    \define\
+    \Nat > \ifzeroErrT\langle T \rangle (t \prd T)[\textsf{error} : \Unittype \to^{\polprd} T]
+    \prd
+    T
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Zero
+    \Rightarrow
+    \textsf{error}(\Unit)
+  \\[-4pt]
+  &\quad
+    \Succ(\_ \prd \Nat)
+    \Rightarrow
+    t
+  \\
+  % modulo function
+  &
+    \define\
+    \Nat > \modulo(m \prd \Nat)
+    \prd
+    \Nat
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Zero
+    \Rightarrow
+    \muprdabs{y}{\Nat}{\mathbf{Panic}}
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+    \Rightarrow
+    \ldots
+\end{codealign}
+
+\begin{codealign}
+  % Unit datatype
+  &
+    \polprd\ \type\ \Unittype\ \where
+  \\[-4pt]
+  &\quad
+    \Unit
+  \\
+  % saveModulo destructor
+  &
+    \define\
+    \saveModulo
+    (m \prd \Nat, n \prd \Nat, k \con \Nat)
+    [\Unittype \times (\Nat \to^{\polprd} \Nat)]
+    \con
+    \Unittype
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Unit
+    \Rightarrow
+    \left(
+      \textsf{error}
+      \Rightarrow
+      (n > \ifzeroErrT\langle \Nat \rangle (n)[\textsf{error}]) > \modulo(m)
+    \right)
+    \mkCmd_{\Nat}
+    k
+\end{codealign}
+
+\begin{align*}
+  \phantom{\reducesto_{\cmd}}
+  &
+  \Unit
+  \mkCmd_{\Unittype}
+  \saveModulo(5, 2, \stopNat[\None, \None])
+  [(\_, \_) \Rightarrow \Zero]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    (2 > \ifzeroErrT\langle \Nat \rangle (2)[\capab\{ (\_, \_) \Rightarrow \Zero \}]) > \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    2 > \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  1
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Done
+\end{align*}
+
+\begin{align*}
+  \phantom{\reducesto_{\cmd}}
+  &
+  \Unit
+  \mkCmd_{\Unittype}
+  \saveModulo(5, 0, \stopNat[\None, \None])
+  [(\_, \_) \Rightarrow \muprdabs{y}{\Nat}{\mathbf{Panic}}]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    \left(
+      0
+      >
+      \ifzeroErrT\langle \Nat \rangle (0)
+      [\capab\{ (\_, \_) \Rightarrow \muprdabs{y}{\Nat}{\mathbf{Panic}} \}]
+    \right)
+    >
+    \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    \capab\{ (\_, \_) \Rightarrow \muprdabs{y}{\Nat}{\mathbf{Panic}} \}(\Unit) > \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \muprdabs{y}{\Nat}{\mathbf{Panic}}
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \mathbf{Panic}
+\end{align*}
+
+\begin{align*}
+  \phantom{\reducesto_{\cmd}}
+  &
+  \Unit
+  \mkCmd_{\Unittype}
+  \saveModulo(5, 0, \stopNat[\None, \None])
+  [(\_, \_) \Rightarrow \Zero]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    \left(
+      0
+      >
+      \ifzeroErrT\langle \Nat \rangle (0)
+      [\capab\{ (\_, \_) \Rightarrow \Zero \}]
+    \right)
+    >
+    \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    \capab\{ (\_, \_) \Rightarrow \Zero \}(\Unit) > \modulo(5)
+  \right)
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Zero
+  \mkCmd_{\Nat}
+  \stopNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Done
+\end{align*}
+
+\subsection{Example 4}
+
+\begin{codealign}
+  % Nat datatype
+  &
+    \polprd\ \type\ \Nat\ \where
+  \\[-4pt]
+  &\quad
+    \Zero
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+  \\
+  % choice function
+  &
+    \define\
+    \Nat > \choice[\textsf{flip} : \Unittype \to^{\polprd} \Bool]
+    \prd
+    \Nat
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Zero
+    \Rightarrow
+    \Zero
+  \\[-4pt]
+  &\quad
+    \Succ(n \prd \Nat)
+    \Rightarrow
+    \textsf{flip}(\Unit) > \ifT\langle \Nat\rangle (\Succ(n), n > \choice[\textsf{flip}])
+\end{codealign}
+
+\begin{codealign}
+  % ListNat datatype
+  &
+    \polprd\ \type\ \ListNat\ \where
+  \\[-4pt]
+  &\quad
+    \Nil
+  \\[-4pt]
+  &\quad
+    \Cons(n \prd \Nat, l \prd \ListNat)
+  \\
+  % append function
+  &
+    \define\
+    \ListNat > \append(l \prd \ListNat)
+    \prd
+    \ListNat
+    \coloneq \match_{1}
+  \\[-4pt]
+  &\quad
+    \Nil
+    \Rightarrow
+    \ldots
+  \\[-4pt]
+  &\quad
+    \Cons(\ldots)
+    \Rightarrow
+    \ldots
+  \\
+  % stop destructor
+  &
+    \define\
+    \stopListNat()[\Void, \Void]
+    \con
+    \ListNat
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Nil
+    \Rightarrow
+    \Done
+  \\[-4pt]
+  &\quad
+    \Cons(\ldots)
+    \Rightarrow
+    \Done
+\end{codealign}
+
+\begin{codealign}
+  % Unit datatype
+  &
+    \polprd\ \type\ \Unittype\ \where
+  \\[-4pt]
+  &\quad
+    \Unit
+  \\
+  % chosen destructor
+  &
+    \define\
+    \chosen
+    (n \prd \Nat, k \con \ListNat)
+    [\Unittype \times (\Bool \to^{\polprd} \ListNat)]
+    \con
+    \Unittype
+    \coloneq \match_{2}
+  \\[-4pt]
+  &\quad
+    \Unit
+    \Rightarrow
+    \left(
+      \textsf{flip}
+      \Rightarrow
+      \Cons(n >\choice[\textsf{flip}], \Nil)
+    \right)
+    \mkCmd_{\ListNat}
+    k
+\end{codealign}
+
+\begin{align*}
+  \text{CHOICE}
+  &:=
+  \choice[\capab\{ (x, k) \Rightarrow (k(\True)) > \append (k(\False))) \}]
+\end{align*}
+
+\begin{align*}
+  \phantom{\reducesto_{\cmd}}
+  &
+  \Unit
+  \mkCmd_{\Unittype}
+  \chosen(2, \stopListNat[\None, \None])
+  [(x, k) \Rightarrow (k(\True)) > \append (k(\False)))]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \left(
+    \Cons
+    \left(
+      2 > \text{CHOICE},
+      \Nil
+    \right)
+  \right)
+  \mkCmd_{\ListNat}
+  \stopListNat[\None, \None]
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  \left(
+    \Cons(2, \Nil)
+    >
+    \append
+    \left(
+      \Cons
+      \left(
+        1 > \text{CHOICE},
+        \Nil
+      \right)
+    \right)
+  \right)
+  \mkCmd_{\ListNat}
+  \stopListNat[\None, \None]
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  \left(
+    \Cons(2, \Nil)
+    >
+    \append
+    \left(
+      \Cons(1, \Nil)
+      >
+      \append
+      \left(
+        \Cons
+        \left(
+          0 > \text{CHOICE},
+          \Nil
+        \right)
+      \right)
+    \right)
+  \right)
+  \mkCmd_{\ListNat}
+  \stopListNat[\None, \None]
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  \left(
+    \Cons(2, \Nil)
+    >
+    \append
+    \left(
+      \Cons(1, \Nil)
+      >
+      \append
+      \left(
+        \Cons
+        \left(
+          \Zero,
+          \Nil
+        \right)
+      \right)
+    \right)
+  \right)
+  \mkCmd_{\ListNat}
+  \stopListNat[\None, \None]
+  \\
+  \reducesto_{\cmd}^{\ast}\
+  &
+  [0,1,2]
+  \mkCmd_{\ListNat}
+  \stopListNat[\None, \None]
+  \\
+  \reducesto_{\cmd}\
+  &
+  \Done
+\end{align*}
