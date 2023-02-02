@@ -31,4 +31,4 @@ So finding such an argument is the only thing to do at the moment.\
 In that regard note that the obvious application domains are
 - proof assistants due to the presumably consistent logic it is built on.
 - intermediate languages due to [prior promising results with sequent calculi in compiler pipelines](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/04/sequent-calculus-icfp16.pdf).
-- object-oriented programming due to [the nature of codata](https://blog.shtsoft.eu/22/11/05/mot-oop.html).
+- object-oriented programming due to [the nature of codata](https://blog.shtsoft.eu/2022/11/05/mot-oop.html).
