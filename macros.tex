@@ -44,7 +44,6 @@
 
 \newcommand{\cmd}{\ensuremath{\mathsf{cmd}}}
 
-
 \newcommand{\typetm}[4]{
   \ensuremath{#1\ \colmeta{|}\ #2\ \colmeta{\vdash}\ #3\ \colmeta{\prdcon}\ #4}
 }
@@ -70,11 +69,6 @@
 \newcommand{\reducesto}{\ensuremath{\triangleright}}
 \newcommand{\reducestoinv}{\ensuremath{\triangleleft}}
 
-\newcommand{\muprdabs}[3]{\ensuremath{\mu(#1 \con #2).#3}}
-\newcommand{\muconabs}[3]{\ensuremath{\mu(#1 \prd #2).#3}}
-\newcommand{\muqabs}[3]{\ensuremath{\mu(#1 \overset{o}{:} #2).#3}}
-\newcommand{\muqabsinv}[3]{\ensuremath{\mu(#1 \overset{\flip{o}}{:} #2).#3}}
-
 % Programming-Commands
 \newcommand{\Emptytype}{\colprd{\textsc{Empty}}}
 \newcommand{\castT}{\colprd{\texttt{cast}}}
@@ -97,6 +91,7 @@
 \newcommand{\modulo}{\colprd{\reflectbox{\texttt{modulo}}}}
 \newcommand{\choice}{\colprd{\texttt{choice}}}
 \newcommand{\stopNat}{\colcon{\text{stop}}}
+\newcommand{\muprdabs}[3]{\ensuremath{\mu(#1 \con #2).#3}}
 
 \newcommand{\ListNat}{\colprd{\textsc{List}\mathbb{N}}}
 \newcommand{\Nil}{\colprd{\text{Nil}}}
