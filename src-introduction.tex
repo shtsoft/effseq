@@ -112,30 +112,30 @@ Note that the examples in the following subsections are sometimes more general t
 
 \begin{minipage}{0.4\textwidth}
   \begin{align*}
-    \phantom{\reducesto_{\polprd}}
+    \phantom{\evaluatesto_{\polprd}}
     &
     \Succ(\Zero) > \timestwo
     \\
-    \reducesto_{\polprd}\
+    \evaluatesto_{\polprd}\
     &
     \Succ(\Succ(\Zero > \timestwo))
     \\
-    \reducesto_{\polprd}\
+    \evaluatesto_{\polprd}\
     &
     \Succ(\Succ(\Zero))
   \end{align*}
 \end{minipage}
 \begin{minipage}{0.5\textwidth}
   \begin{align*}
-    \phantom{\reducesto_{\polcon}}
+    \phantom{\evaluatesto_{\polcon}}
     &
     \Tail(\Head(\stopNat[\None, \None])) < \dupltails
     \\
-    \reducesto_{\polcon}\
+    \evaluatesto_{\polcon}\
     &
     \Tail(\Tail(\Head(\stopNat[\None, \None]) < \dupltails))
     \\
-    \reducesto_{\polcon}\
+    \evaluatesto_{\polcon}\
     &
     \Tail(\Tail(\Head(\stopNat[\None, \None])))
   \end{align*}
@@ -143,42 +143,42 @@ Note that the examples in the following subsections are sometimes more general t
 
 \begin{align*}
   \asc(\Succ(\Zero) > \timestwo)[\text{id}^{\polprd}, \text{id}^{\polcon}]
-  \reducesto_{\polprd}^{\ast}
+  \evaluatesto_{\polprd}^{\ast}
   \asc(\Succ(\Succ(\Zero))[\text{id}^{\polprd}, \text{id}^{\polcon}]
 \end{align*}
 
 \begin{align*}
-  \phantom{\reducesto_{\cmd}}
+  \phantom{\evaluatesto_{\cmd}}
   &
   \asc(\Succ(\Zero) > \timestwo)[\text{id}^{\polprd}, \text{id}^{\polcon}]
   \mkCmd_{\StreamNat}
   (\Tail(\Head(\stopNat[\None, \None])) < \dupltails)
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   \asc(\Succ(\Succ(\Zero))[\text{id}^{\polprd}, \text{id}^{\polcon}]
   \mkCmd_{\StreamNat}
   \Tail(\Tail(\Head(\stopNat[\None, \None])))
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \asc(\Succ(\Succ(\Succ(\Zero)))[\text{id}^{\polprd}, \text{id}^{\polcon}]
   \mkCmd_{\StreamNat}
   \Tail(\Head(\stopNat[\None, \None]))
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \asc(\Succ(\Succ(\Succ(\Succ(\Zero))))[\text{id}^{\polprd}, \text{id}^{\polcon}]
   \mkCmd_{\StreamNat}
   \Head(\stopNat[\None, \None])
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Succ(\Succ(\Succ(\Succ(\Zero)))
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Done
 \end{align*}
@@ -513,14 +513,14 @@ Note that the examples in the following subsections are sometimes more general t
 \end{codealign}
 
 \begin{align*}
-  \phantom{\reducesto_{\cmd}}
+  \phantom{\evaluatesto_{\cmd}}
   &
   \Unit
   \mkCmd_{\Unittype}
   \saveModulo(5, 2, \stopNat[\None, \None])
   [(\_, \_) \Rightarrow \Zero]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     (2 > \ifzeroErrT\langle \Nat \rangle (2)[\capab\{ (\_, \_) \Rightarrow \Zero \}]) > \modulo(5)
@@ -528,7 +528,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     2 > \modulo(5)
@@ -536,26 +536,26 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   1
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Done
 \end{align*}
 
 \begin{align*}
-  \phantom{\reducesto_{\cmd}}
+  \phantom{\evaluatesto_{\cmd}}
   &
   \Unit
   \mkCmd_{\Unittype}
   \saveModulo(5, 0, \stopNat[\None, \None])
   [(\_, \_) \Rightarrow \muprdabs{y}{\Nat}{\mathbf{Panic}}]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     \left(
@@ -570,7 +570,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     \capab\{ (\_, \_) \Rightarrow \muprdabs{y}{\Nat}{\mathbf{Panic}} \}(\Unit) > \modulo(5)
@@ -578,26 +578,26 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \muprdabs{y}{\Nat}{\mathbf{Panic}}
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \mathbf{Panic}
 \end{align*}
 
 \begin{align*}
-  \phantom{\reducesto_{\cmd}}
+  \phantom{\evaluatesto_{\cmd}}
   &
   \Unit
   \mkCmd_{\Unittype}
   \saveModulo(5, 0, \stopNat[\None, \None])
   [(\_, \_) \Rightarrow \Zero]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     \left(
@@ -612,7 +612,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     \capab\{ (\_, \_) \Rightarrow \Zero \}(\Unit) > \modulo(5)
@@ -620,13 +620,13 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Zero
   \mkCmd_{\Nat}
   \stopNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Done
 \end{align*}
@@ -748,14 +748,14 @@ Note that the examples in the following subsections are sometimes more general t
 \end{align*}
 
 \begin{align*}
-  \phantom{\reducesto_{\cmd}}
+  \phantom{\evaluatesto_{\cmd}}
   &
   \Unit
   \mkCmd_{\Unittype}
   \chosen(2, \stopListNat[\None, \None])
   [(x, k) \Rightarrow (k(\True)) > \append (k(\False)))]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \left(
     \Cons
@@ -767,7 +767,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\ListNat}
   \stopListNat[\None, \None]
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   \left(
     \Cons(2, \Nil)
@@ -786,7 +786,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\ListNat}
   \stopListNat[\None, \None]
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   \left(
     \Cons(2, \Nil)
@@ -810,7 +810,7 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\ListNat}
   \stopListNat[\None, \None]
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   \left(
     \Cons(2, \Nil)
@@ -834,13 +834,13 @@ Note that the examples in the following subsections are sometimes more general t
   \mkCmd_{\ListNat}
   \stopListNat[\None, \None]
   \\
-  \reducesto_{\cmd}^{\ast}\
+  \evaluatesto_{\cmd}^{\ast}\
   &
   [0,1,2]
   \mkCmd_{\ListNat}
   \stopListNat[\None, \None]
   \\
-  \reducesto_{\cmd}\
+  \evaluatesto_{\cmd}\
   &
   \Done
 \end{align*}

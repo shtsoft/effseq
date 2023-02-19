@@ -633,12 +633,12 @@ The syntax is defined in \cref{fig:?:syntax}.
       \in
       \textsc{Cases}(\mathcal{F}^{\pol})
     $}
-    \RightLabel{\textsc{R-$\pol$-Match1}}
+    \RightLabel{\textsc{E-$\pol$-Match1}}
     \UnaryInfC{$
       \mathcal{C}^{\pol}\overline{v^{\pol}}'\
       \boxed{\pol}\
       \mathcal{F}^{\pol}(\overline{v^{\pol}}, \overline{b^{\pol}})
-      \reducesto_{\pol}
+      \evaluatesto_{\pol}
       t^{\pol}[\overline{v^{\pol}}'][\overline{v^{\pol}}][\overline{b^{\pol}}]
     $}
   \end{prooftree}
@@ -647,13 +647,13 @@ The syntax is defined in \cref{fig:?:syntax}.
   \begin{prooftree}
   \scriptsize
     \AxiomC{}
-    \RightLabel{\textsc{R-$\pol$-App}}
+    \RightLabel{\textsc{E-$\pol$-App}}
     \UnaryInfC{$
       \left(
         (\overline{x^{\pol}}, \overline{k^{\pol}}) \Rightarrow t^{\pol}
       \right)
       (\overline{v^{\pol}}, \overline{b^{\pol}})
-      \reducesto_{\pol}
+      \evaluatesto_{\pol}
       t^{\pol}[\overline{v^{\pol}}][\overline{b^{\pol}}]
     $}
   \end{prooftree}
@@ -661,11 +661,11 @@ The syntax is defined in \cref{fig:?:syntax}.
 \vspace*{0.3cm}
 
 \begin{prooftree}
-  \AxiomC{$s^{\pol} \reducesto_{\pol} t^{\pol}$}
-  \RightLabel{\textsc{R-$\pol$}}
+  \AxiomC{$s^{\pol} \evaluatesto_{\pol} t^{\pol}$}
+  \RightLabel{\textsc{E-$\pol$}}
   \UnaryInfC{$
     ctx^{\pol}[s^{\pol}]
-    \reducesto_{\pol}
+    \evaluatesto_{\pol}
     ctx^{\pol}[t^{\pol}]
   $}
 \end{prooftree}
@@ -680,7 +680,7 @@ The syntax is defined in \cref{fig:?:syntax}.
     \in
     \textsc{Cases}(\mathcal{D}^{\polprd})
   $}
-  \RightLabel{\textsc{R-$\polprd$-$\polprd$-Match2}}
+  \RightLabel{\textsc{E-$\polprd$-$\polprd$-Match2}}
   \UnaryInfC{$
     \left(
       \mathcal{D}^{\polprd}
@@ -689,7 +689,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \mkCmd_{\mathcal{T}^{\polcon}}
       \mathcal{C}_{i}^{\polcon}\overline{v^{\polcon}}
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}
       \left[
@@ -713,7 +713,7 @@ The syntax is defined in \cref{fig:?:syntax}.
     \in
     \textsc{Cases}(\mathcal{D}^{\polcon})
   $}
-  \RightLabel{\textsc{R-$\polprd$-$\polcon$-Match2}}
+  \RightLabel{\textsc{E-$\polprd$-$\polcon$-Match2}}
   \UnaryInfC{$
     \left(
       \mathcal{C}_{i}^{\polprd}\overline{v^{\polprd}}
@@ -722,7 +722,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \overline{v^{\polcon}}
       \ldots, (x_{i}^{\polprd},k_{i}^{\polprd}) \Rightarrow t_{i}^{\polprd}, \ldots
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}
       \left[
@@ -746,7 +746,7 @@ The syntax is defined in \cref{fig:?:syntax}.
     \in
     \textsc{Cases}(\mathcal{D}^{\polprd})
   $}
-  \RightLabel{\textsc{R-$\polcon$-$\polprd$-Match2}}
+  \RightLabel{\textsc{E-$\polcon$-$\polprd$-Match2}}
   \UnaryInfC{$
     \left(
       \mathcal{D}^{\polprd}
@@ -755,7 +755,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \mkCmd_{\mathcal{T}_{2}^{\polcon}}
       \mathcal{C}_{i}^{\polcon}\overline{v^{\polcon}}
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}
       \mkCmd_{\mathcal{T}_{1}^{\polprd}}
@@ -779,7 +779,7 @@ The syntax is defined in \cref{fig:?:syntax}.
     \in
     \textsc{Cases}(\mathcal{D}^{\polcon})
   $}
-  \RightLabel{\textsc{R-$\polcon$-$\polcon$-Match2}}
+  \RightLabel{\textsc{E-$\polcon$-$\polcon$-Match2}}
   \UnaryInfC{$
     \left(
       \mathcal{C}_{i}^{\polprd}\overline{v^{\polprd}}
@@ -788,7 +788,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \overline{v^{\polcon}}
       \ldots, (x_{i}^{\polcon},k_{i}^{\polcon}) \Rightarrow t_{i}^{\polcon}, \ldots
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}
       \mkCmd_{\mathcal{T}_{1}^{\polprd}}
@@ -813,7 +813,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \in
       \textsc{Cases}(\mathcal{D}^{\polprd})
     $}
-    \RightLabel{\textsc{R-$\polprd$-Done}}
+    \RightLabel{\textsc{E-$\polprd$-Done}}
     \UnaryInfC{$
       \left(
         \mathcal{D}^{\polprd}
@@ -822,7 +822,7 @@ The syntax is defined in \cref{fig:?:syntax}.
         \mkCmd_{\mathcal{T}^{\polcon}}
         \mathcal{C}_{i}^{\polcon}\overline{v^{\polcon}} 
       \right)
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       \Done
     $}
   \end{prooftree}
@@ -837,7 +837,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \in
       \textsc{Cases}(\mathcal{D}^{\polcon})
     $}
-    \RightLabel{\textsc{R-$\polcon$-Done}}
+    \RightLabel{\textsc{E-$\polcon$-Done}}
     \UnaryInfC{$
       \left(
         \mathcal{C}_{i}^{\polprd}\overline{v^{\polprd}}
@@ -846,7 +846,7 @@ The syntax is defined in \cref{fig:?:syntax}.
         \overline{v^{\polcon}}
         \overline{h}
       \right)
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       \Done
     $}
   \end{prooftree}
@@ -856,7 +856,7 @@ The syntax is defined in \cref{fig:?:syntax}.
 \begin{prooftree}
 \scriptsize
   \AxiomC{}
-  \RightLabel{\textsc{R-$\polprd$-Cap}}
+  \RightLabel{\textsc{E-$\polprd$-Cap}}
   \UnaryInfC{$
     \left(
       ctx^{\polprd}
@@ -866,7 +866,7 @@ The syntax is defined in \cref{fig:?:syntax}.
       \mkCmd_{\mathcal{T}^{\polprd}}
       t^{\polcon}
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}[v^{\polprd} / x^{\polprd}][(x \Rightarrow ctx^{\polprd}[x]) / k^{\polprd}]
       \mkCmd_{\mathcal{T}^{\polprd}}
@@ -879,7 +879,7 @@ The syntax is defined in \cref{fig:?:syntax}.
 \begin{prooftree}
 \scriptsize
   \AxiomC{}
-  \RightLabel{\textsc{R-$\polcon$-Cap}}
+  \RightLabel{\textsc{E-$\polcon$-Cap}}
   \UnaryInfC{$
     \left(
       t^{\polprd}
@@ -889,7 +889,7 @@ The syntax is defined in \cref{fig:?:syntax}.
           \capab\{ (x^{\polcon}, k^{\polcon}) \Rightarrow t^{\polcon} \}(v^{\polcon})
       \right]
     \right)
-    \reducesto_{\cmd}
+    \evaluatesto_{\cmd}
     \left(
       t^{\polprd}
       \mkCmd_{\mathcal{T}^{\polcon}}
@@ -901,22 +901,22 @@ The syntax is defined in \cref{fig:?:syntax}.
 
 \begin{minipage}{0.45\textwidth}
   \begin{prooftree}
-    \AxiomC{$s^{\polprd} \reducesto_{\polprd} t^{\polprd}$}
-    \RightLabel{\textsc{R-$\polprd$-$\polprd$}}
+    \AxiomC{$s^{\polprd} \evaluatesto_{\polprd} t^{\polprd}$}
+    \RightLabel{\textsc{E-$\polprd$-$\polprd$}}
     \UnaryInfC{$
       (s^{\polprd} \mkCmd_{\mathcal{T}^{\polprd}} t^{\polcon})
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       (t^{\polprd} \mkCmd_{\mathcal{T}^{\polprd}} t^{\polcon})
     $}
   \end{prooftree}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
   \begin{prooftree}
-    \AxiomC{$s^{\polcon} \reducesto_{\polcon} t^{\polcon}$}
-    \RightLabel{\textsc{R-$\polprd$-$\polcon$}}
+    \AxiomC{$s^{\polcon} \evaluatesto_{\polcon} t^{\polcon}$}
+    \RightLabel{\textsc{E-$\polprd$-$\polcon$}}
     \UnaryInfC{$
       (v^{\polprd} \mkCmd_{\mathcal{T}^{\polprd}} s^{\polcon})
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       (v^{\polprd} \mkCmd_{\mathcal{T}^{\polprd}} t^{\polcon})
     $}
   \end{prooftree}
@@ -924,22 +924,22 @@ The syntax is defined in \cref{fig:?:syntax}.
 
 \begin{minipage}{0.45\textwidth}
   \begin{prooftree}
-    \AxiomC{$s^{\polprd} \reducesto_{\polprd} t^{\polprd}$}
-    \RightLabel{\textsc{R-$\polcon$-$\polprd$}}
+    \AxiomC{$s^{\polprd} \evaluatesto_{\polprd} t^{\polprd}$}
+    \RightLabel{\textsc{E-$\polcon$-$\polprd$}}
     \UnaryInfC{$
       (s^{\polprd} \mkCmd_{\mathcal{T}^{\polcon}} v^{\polcon})
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       (t^{\polprd} \mkCmd_{\mathcal{T}^{\polcon}} v^{\polcon})
     $}
   \end{prooftree}
 \end{minipage}
 \begin{minipage}{0.45\textwidth}
   \begin{prooftree}
-    \AxiomC{$s^{\polcon} \reducesto_{\polcon} t^{\polcon}$}
-    \RightLabel{\textsc{R-$\polcon$-$\polcon$}}
+    \AxiomC{$s^{\polcon} \evaluatesto_{\polcon} t^{\polcon}$}
+    \RightLabel{\textsc{E-$\polcon$-$\polcon$}}
     \UnaryInfC{$
       (t^{\polprd} \mkCmd_{\mathcal{T}^{\polcon}} s^{\polcon})
-      \reducesto_{\cmd}
+      \evaluatesto_{\cmd}
       (t^{\polprd} \mkCmd_{\mathcal{T}^{\polcon}} t^{\polcon})
     $}
   \end{prooftree}
